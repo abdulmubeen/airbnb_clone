@@ -1,9 +1,12 @@
 import "./globals.css";
 
+import Navbar from "@app/components/navbar/Navbar";
+import ClientOnly from "@app/components/ClientOnly";
+import RegisterModal from "./components/modals/RegisterModal";
+import ToasterProvider from "./providers/ToasterProvider";
+
 import { Nunito } from "next/font/google";
 const nunito = Nunito({ subsets: ["latin"] });
-
-import Navbar from "./components/navbar/Navbar";
 
 export const metadata = {
   title: "Airbnb Clone",
@@ -18,7 +21,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={nunito.className}>
-        <Navbar />
+        <ClientOnly>
+          <ToasterProvider />
+          <RegisterModal />
+          <Navbar />
+        </ClientOnly>
         {children}
       </body>
     </html>
