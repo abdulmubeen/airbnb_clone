@@ -2,14 +2,23 @@
 
 import { useState, useCallback } from "react";
 import useRegisterModal from "@app/hooks/useRegisterModal";
+import useLoginModal from "@app/hooks/useLoginModal";
+import { signOut } from "next-auth/react";
 
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "@app/components/Avatar";
 import MenuItem from "./MenuItem";
+import { User } from "@prisma/client";
 
-const UserMenu = () => {
+interface UserMenuProps {
+  currentUser?: User | null;
+}
+
+const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
+  console.log(currentUser);
   const [isOpen, setIsOpen] = useState(false);
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
@@ -35,14 +44,25 @@ const UserMenu = () => {
       {isOpen && (
         <div className="absolute rounded-xl shadow-[1px_1.75px_5px_2px_rgba(0,0,0,0.1)] w-[45vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm">
           <div className="flex flex-col cursor-pointer">
-            <>
-              <MenuItem onClick={registerModal.onOpen} label="Sign up" />
-              <MenuItem onClick={() => {}} label="Log in" />
-            </>
-            <div className=" border-t-[1px]">
-              <MenuItem onClick={() => {}} label="Airbnb your home" />
-              <MenuItem onClick={() => {}} label="Help" />
-            </div>
+            {currentUser ? (
+              <>
+                <MenuItem onClick={() => {}} label="My trips" />
+                <MenuItem onClick={() => {}} label="My favourites" />
+                <MenuItem onClick={() => {}} label="My reservations" />
+                <MenuItem onClick={() => {}} label="My properties" />
+                <MenuItem onClick={() => {}} label="Airbnb your home" />
+                <hr />
+                <MenuItem onClick={() => signOut()} label="Log out" />
+              </>
+            ) : (
+              <>
+                <MenuItem onClick={registerModal.onOpen} label="Sign up" />
+                <MenuItem onClick={loginModal.onOpen} label="Log in" />
+                <hr />
+                <MenuItem onClick={() => {}} label="Airbnb your home" />
+                <MenuItem onClick={() => {}} label="Help" />
+              </>
+            )}
           </div>
         </div>
       )}
