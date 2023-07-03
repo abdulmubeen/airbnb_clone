@@ -12,7 +12,7 @@ interface EmptyStateProps {
 }
 
 const EmptyState: React.FC<EmptyStateProps> = ({
-  title = "No Exact Matches",
+  title = "No exact matches",
   subtitle = "Try changing or removing some of your filters.",
   showReset,
 }) => {

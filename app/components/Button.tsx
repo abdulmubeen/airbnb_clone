@@ -14,8 +14,8 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({
   label,
   onClick,
-  outline,
   disabled,
+  outline,
   small,
   icon: Icon,
 }) => {

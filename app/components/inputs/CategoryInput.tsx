@@ -2,14 +2,14 @@
 
 import { IconType } from "react-icons";
 
-interface CategoryInputProps {
+interface CategoryBoxProps {
   icon: IconType;
   label: string;
   selected?: boolean;
   onClick: (value: string) => void;
 }
 
-const CategoryInput: React.FC<CategoryInputProps> = ({
+const CategoryBox: React.FC<CategoryBoxProps> = ({
   icon: Icon,
   label,
   selected,
@@ -18,9 +18,18 @@ const CategoryInput: React.FC<CategoryInputProps> = ({
   return (
     <div
       onClick={() => onClick(label)}
-      className={`rounded-xl border-2 p-4 flex flex-col gap-3 hover:border-black transition cursor-pointer ${
-        selected ? "border-black" : "border-neutral-200"
-      }`}
+      className={`
+        rounded-xl
+        border-2
+        p-4
+        flex
+        flex-col
+        gap-3
+        hover:border-black
+        transition
+        cursor-pointer
+        ${selected ? "border-black" : "border-neutral-200"}
+      `}
     >
       <Icon size={30} />
       <div className="font-semibold">{label}</div>
@@ -28,4 +37,4 @@ const CategoryInput: React.FC<CategoryInputProps> = ({
   );
 };
 
-export default CategoryInput;
+export default CategoryBox;
